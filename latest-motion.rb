@@ -29,6 +29,7 @@ html = <<-end
     <style type="text/css">
       body { font-family: arial, verdana, sans-serif; }
       h1 { font-size: 1em; }
+      h2 { font-size: 0.8em; font-weight: normal; }
       #image-container { position: relative; }
       #highlight { position: absolute; }
       #prev, #next { position: absolute; top: 0px; width: 512px; height: 576px; float: left; }
@@ -40,13 +41,14 @@ html = <<-end
       <div class="row">
         <div class="col">
           <h1>#{title}</h1>
+          <h2>Way slow, loaded from a <a href="http://www.clarkeology.com/wiki/raspberry+pi">raspberry pi</a> in my house. Hmm, this is why my broadband appears so patchy...</h2>
           <div id="image-container">
             <img id="image" src="#{images.slice -1}" title="#{images.slice -1}"  width="1024" height="576" />
             <div id="highlight"></div>
             <a id="prev">&lt;</a>
             <a id="next">&gt;</a>
           </div>
-          <p class="intro">Click left or left cursor key for the previous image, right for the next. Hmm how do I swipe?</p>
+          <h2>Click left or left cursor key for the previous image, right for the next. Hmm how do I swipe?</h2>
           <div class="previousImages">
             <img id="image" src="#{images.slice -2}" title="#{images.slice -2}" width="128" height="96" />
             <img id="image" src="#{images.slice -3}" title="#{images.slice -3}" width="128" height="96" />
@@ -107,10 +109,14 @@ html = <<-end
         switch ( e.which || e.keyDown ) {
           case 37:
           case 38:
-            index = load( -- index ); break;
+            index = load( -- index );
+            e.preventDefault( );
+            break;
           case 39:
           case 40:
-            index = load( ++ index ); break;
+            index = load( ++ index );
+            e.preventDefault( );
+            break;
         }
       } );
       attachEvent( $( '#prev' ), 'click', function ( e ) {
