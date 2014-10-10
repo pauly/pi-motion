@@ -1,0 +1,2 @@
+42 * * * * find /var/www/motion/ -cmin +2880 -name "*.jpg" -exec rm -f {} \; > /tmp/delete-old-jpg.out 2> /tmp/delete-old-jpg.err
+43 * * * * find /var/www/motion/ -cmin +360 -name "*.avi" -exec rm -f {} \; > /tmp/delete-old-avi.out 2> /tmp/delete-old-avi.err
