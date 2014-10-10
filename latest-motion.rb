@@ -30,14 +30,17 @@ html = <<-end
     <style type="text/css">
       body { font-family: arial, verdana, sans-serif; }
       h1 { font-size: 1em; }
-      h2 { font-size: 0.8em; font-weight: normal; }
+      p { font-size: 0.8em; font-weight: normal; }
       #image-container { position: relative; }
       #highlight { position: absolute; }
       #prev, #next { position: absolute; left: 0px; top: 0px; width: 512px; height: 576px; float: left; text-indent: 999em; }
       #next { margin-left: 512px; text-align: right; }
       @media (max-width: 800px) {
-        h1, h2, p { font-size: 2em; }
+        h1, p { font-size: 2em; }
         img, #prev, #next { width: 100%; }
+      }
+      @media (max-width: 1154px) {
+        iframe { display: none; }
       }
     </style>
   </head>
@@ -45,15 +48,17 @@ html = <<-end
     <div class="container">
       <div class="row">
         <div class="col">
+          <iframe style="width:120px;height:240px;float:right;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=GB&source=ss&ref=ss_til&ad_type=product_link&tracking_id=clarkeology-21&marketplace=amazon&region=GB&placement=B00E1GGE40&asins=B00E1GGE40&linkId=MIG4ALJNYCMLNP3U&show_border=true&link_opens_in_new_window=true"></iframe>
           <h1><a href="">#{title}</a></h1>
-          <h2>Way slow, loaded from a <a href="http://www.clarkeology.com/wiki/raspberry+pi">raspberry pi</a> in my house. Hmm, this is why my broadband appears so patchy...</h2>
+          <p>Way slow, loaded from a <a href="http://www.clarkeology.com/wiki/raspberry+pi">raspberry pi</a> in my house. Hmm, this is why my broadband appears so patchy...</p>
+          <p><a href="https://github.com/pauly/pi-motion">See the repo</a> for how to set up your pi and <a href="http://www.amazon.co.uk/gp/product/B00E1GGE40/ref=as_li_tl?ie=UTF8&camp=1634&creative=19450&creativeASIN=B00E1GGE40&linkCode=as2&tag=clarkeology-21&linkId=ECALLBWP73WQVL7M">camera module</a> like this...</p>
           <div id="image-container">
             <img id="image" src="#{images.slice -1}" title="#{images.slice -1}"  width="1024" height="576" />
             <div id="highlight"></div>
             <a id="prev">&lt;</a>
             <a id="next">&gt;</a>
           </div>
-          <h2>Click left or left cursor key for the previous image, right for the next. Hmm how do I swipe?</h2>
+          <p>Click left or left cursor key for the previous image, right for the next. Hmm how do I swipe?</p>
           <div class="previousImages">
             <a href="##{images.slice -2}"><img src="#{images.slice -2}" width="128" height="96" /></a>
             <a href="##{images.slice -3}"><img src="#{images.slice -3}" width="128" height="96" /></a>
