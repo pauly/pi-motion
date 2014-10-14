@@ -71,6 +71,7 @@ html = <<-end
         </div>
       </div>
     </div>
+    <p>Blank image? Looking for a demo? See <a href="http://pauly.github.io/pi-motion/">http://pauly.github.io/pi-motion/</a>...</p>
     <p>By <a href="http://www.clarkeology.com/blog/">Paul Clarke</a>, a work in progress.</p>
     <script type="text/javascript">
       if ( ! window.console ) window.console = { log: function ( ) { alert( arguments ); }};
