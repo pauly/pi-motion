@@ -1,4 +1,4 @@
-echo "\nexport EDITOR=vi" >> ~/.profile
+echo "export EDITOR=vi" >> ~/.profile
 sudo passwd pi
 sudo dpkg-reconfigure tzdata
 sudo apt-get update
@@ -9,7 +9,7 @@ sudo apt-get install -y git-core apache2 php5 libapache2-mod-php5 libjpeg62 libj
 cd && git clone https://github.com/pauly/pi-motion.git
 sudo crontab cron.tab
 cd /etc && sudo ln -s ~/pi-motion/motion.conf .
-sudo /usr/sbin && sudo ln -s ~/pi-motion/motion .
+cd /usr/sbin && sudo ln -s ~/pi-motion/motion .
 sudo cat /etc/rc.local | sed 's/exit/motion\n\nexit/' > /etc/rc.local
 # echo '\ndisable_camera_led=1' >> /boot/config.txt
 mkdir /var/www/motion
