@@ -10,7 +10,13 @@ cd && git clone https://github.com/pauly/pi-motion.git && cd pi-motion
 ./cron.rb
 cd /etc && sudo ln -s ~/pi-motion/motion.conf . && cd ~/pi-motion
 cd /usr/sbin && sudo ln -s ~/pi-motion/motion . && cd ~/pi-motion
-# cat /etc/rc.local | sudo sed 's/exit/motion\n\nexit/' > /etc/rc.local
-# sudo cp ~/pi-motion.sh /etc/init.d
 mkdir /var/www/motion
 cd /var/www && wget http://www.raspberrypi.org/favicon.ico
+
+# for laundrino
+wget https://www.unix-ag.uni-kl.de/~auerswal/ssocr/ssocr-2.16.2.tar.bz2
+bunzip2 ssocr-2.16.2.tar.bz2 
+tar -xvf ssocr-2.16.2.tar 
+cd ssocr-2.16.2/
+sudo apt-get install libimlib2 libimlib2-dev
+make && sudo make install
