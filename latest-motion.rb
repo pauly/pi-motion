@@ -30,11 +30,14 @@ html = <<-end
     <style type="text/css">
       body { font-family: arial, verdana, sans-serif; }
       h1 { font-size: 1em; }
-      p { font-size: 0.8em; font-weight: normal; }
+      p, a.video { font-size: 0.8em; font-weight: normal; }
       #image-container { position: relative; }
-      #highlight { position: absolute; }
+      #highlight { position: absolute; border: 1px #ff0 dashed; z-index: 3; }
+      #highlight a { color: #ff0; text-decoration: none; }
+      #hightlight.hidden { display: none; }
       #prev, #next { position: absolute; left: 0px; top: 0px; width: 512px; height: 576px; float: left; text-indent: 999em; }
       #next { margin-left: 512px; text-align: right; }
+      #ads { width: 120px; float: right; margin: 10px; }
       @media (max-width: 800px) {
         h1, p { font-size: 2em; }
         img, #prev, #next { width: 100%; }
@@ -48,7 +51,15 @@ html = <<-end
     <div class="container">
       <div class="row">
         <div class="col">
-          <iframe style="width:120px;height:240px;float:right;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=GB&source=ss&ref=ss_til&ad_type=product_link&tracking_id=clarkeology-21&marketplace=amazon&region=GB&placement=B00E1GGE40&asins=B00E1GGE40&linkId=MIG4ALJNYCMLNP3U&show_border=true&link_opens_in_new_window=true"></iframe>
+          <div id="ads">
+            <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=GB&source=ss&ref=ss_til&ad_type=product_link&tracking_id=clarkeology-21&marketplace=amazon&region=GB&placement=B00E1GGE40&asins=B00E1GGE40&linkId=MIG4ALJNYCMLNP3U&show_border=true&link_opens_in_new_window=true"></iframe>
+            <script data="inline" async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+              style="display:inline-block;width:120px;height:600px"
+              data-ad-client="ca-pub-7656534065377065"
+              data-ad-slot="2665218693"></ins>
+            <script data="inline"> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+          </div>
           <h1><a href="">#{title}</a></h1>
           <p>Way slow, loaded from a <a href="http://www.clarkeology.com/wiki/raspberry+pi">raspberry pi</a> in my house. Hmm, this is why my broadband appears so patchy...</p>
           <p><a href="https://github.com/pauly/pi-motion">See the repo</a> for how to set up your pi and <a href="http://www.amazon.co.uk/gp/product/B00E1GGE40/ref=as_li_tl?ie=UTF8&camp=1634&creative=19450&creativeASIN=B00E1GGE40&linkCode=as2&tag=clarkeology-21&linkId=ECALLBWP73WQVL7M">camera module</a> like this...</p>
@@ -92,7 +103,7 @@ html = <<-end
         if ( i < 0 ) i = max;
         if ( i > max ) i = 0;
         if ( ! images[i] ) return i;
-        if ( 'jpg' !== images[i].substr( -3, 3 )) return i;
+        if ( images[i].substr( -3, 3 ) !== 'jpg' ) return i;
         location.hash = images[i];
         image.title = images[i];
         image.src = images[i];
@@ -104,17 +115,23 @@ html = <<-end
             var y = RegExp.$4 / 1;
             var left = Math.round( x - ( width / 2 ));
             var top = Math.round( y - ( height / 2 ));
-            highlight.style.visibility = 'visible';
-            highlight.style.border = '1px #ff0 dashed';
             highlight.style.left = left + 'px';
             highlight.style.top = top + 'px';
             highlight.style.width = width + 'px';
             highlight.style.height = height + 'px';
           }
           else {
-            highlight.style.visibility = 'hidden';
+            highlight.className = 'hidden';
           }
         }
+        // -rw-r--r-- 1 pi pi  29358 Jun  4 20:45 04204518-30x155-14x250-1667-e02-q00.jpg
+        // -rw-r--r-- 1 pi pi  29185 Jun  4 20:46 04204518-30x155-14x250-1667-e02-snapshot.jpg
+        // -rw-r--r-- 1 pi pi  78724 Jun  4 20:46 04204518-30x155-14x250-1667-02.avi
+        if ( /(.+-)e(\\d+)-snapshot/.exec( images[i] )) {
+          var video = RegExp.$1 + RegExp.$2 + '.avi';
+          highlight.innerHTML = '<a class="video" href="' + video + '">video</a>';
+        }
+
         return i;
       };
       attachEvent( d, 'keydown', function ( e ) {
