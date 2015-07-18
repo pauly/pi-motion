@@ -11,9 +11,10 @@ crontab = crontab.reject do | line |
   line =~ /motion/
 end
 crontab << '# new crontab added for ' + dir
-puts 'Where to find images? Default /var/www/motion'
+defaultFolder = '/var/www/motion/'
+puts 'Where to find images? Default ' + defaultFolder
 outFolder = STDIN.gets.chomp.to_s
-outFolder = '/var/www/motion' if outFolder.empty?
+outFolder = defaultFolder if outFolder.empty?
 puts "Where to write output? Default #{outFolder}/index.html"
 outFile = STDIN.gets.chomp.to_s
 outFile = "#{outFolder}/index.html" if outFile.empty?
