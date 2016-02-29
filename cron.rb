@@ -18,8 +18,8 @@ outFolder = defaultFolder if outFolder.empty?
 puts "Where to write output? Default #{outFolder}/index.html"
 outFile = STDIN.gets.chomp.to_s
 outFile = "#{outFolder}/index.html" if outFile.empty?
-crontab << "42 * * * * find #{outFolder} -cmin +2880 -name '*.jpg' -exec rm -f {} \; > /tmp/delete-old-jpg.out 2> /tmp/delete-old-jpg.err"
-crontab << "43 * * * * find #{outFolder} -cmin +360 -name '*.avi' -exec rm -f {} \; > /tmp/delete-old-avi.out 2> /tmp/delete-old-avi.err"
+crontab << "42 * * * * find #{outFolder} -cmin +2880 -name '*.jpg' -exec rm -f {} \\; > /tmp/delete-old-jpg.out 2> /tmp/delete-old-jpg.err"
+crontab << "43 * * * * find #{outFolder} -cmin +360 -name '*.avi' -exec rm -f {} \\; > /tmp/delete-old-avi.out 2> /tmp/delete-old-avi.err"
 crontab << "*/10 * * * * #{executable} #{outFolder} > #{outFile} 2> /tmp/latest-motion.err"
 motion = `which motion`.chomp
 crontab << "@reboot #{motion} > /tmp/motion.reboot.out 2> /tmp/motion.reboot.err"
